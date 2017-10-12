@@ -10,6 +10,15 @@ exports.assetsPath = function (_path) {
   return path.posix.join(assetsSubDirectory, _path)
 }
 
+const sassResourceLoader = {
+  loader: 'sass-resources-loader',
+  options: {
+    resources: [
+      path.resolve(__dirname, '../src/assets/styles/variables.scss')
+    ]
+  }
+}
+
 exports.cssLoaders = function (options) {
   options = options || {}
 
@@ -50,8 +59,8 @@ exports.cssLoaders = function (options) {
     css: generateLoaders(),
     postcss: generateLoaders(),
     less: generateLoaders('less'),
-    sass: generateLoaders('sass', { indentedSyntax: true }),
-    scss: generateLoaders('sass'),
+    sass: generateLoaders('sass', { indentedSyntax: true }).concat(sassResourceLoader),
+    scss: generateLoaders('sass').concat(sassResourceLoader),
     stylus: generateLoaders('stylus'),
     styl: generateLoaders('stylus')
   }

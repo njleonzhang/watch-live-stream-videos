@@ -1,15 +1,21 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import Mgmt from '@/components/Mgmt'
+import Home from '@/pages/Home'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'Hello',
-      component: HelloWorld
+      path: '/mgmt',
+      component: Mgmt,
+      children: [
+        {
+          path: 'home',
+          component: Home
+        }
+      ]
     }
   ]
 })
