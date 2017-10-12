@@ -9,6 +9,7 @@ import router from './router'
 import store from './store'
 import VueProgressBar from 'vue-progressbar'
 import '@/assets/iconfont/iconfont.css'
+import '@/assets/styles/main.scss'
 
 Vue.config.productionTip = false
 
