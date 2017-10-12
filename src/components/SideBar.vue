@@ -4,9 +4,22 @@
     width: $side-width;
     float: left;
     overflow: scroll;
-    background-color: #eff2f7;
+    background-color: #4c4743;
     &.side-close{
       width: $side-close-width;
+    }
+
+    .el-menu {
+      background: #4c4743;
+
+      .el-menu-item {
+        color: white;
+
+        &.is-active, &:hover {
+          background: #585e73;
+        }
+      }
+
     }
   }
 </style>

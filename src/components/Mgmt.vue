@@ -4,7 +4,7 @@
     $main-min-width: 1280px;
 
     .header {
-      background-color: $blue;
+      background-color: #373d41;
       height: $header-height;
       min-width: $main-min-width;
 
