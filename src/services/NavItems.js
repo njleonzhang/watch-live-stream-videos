@@ -1,7 +1,7 @@
 export default [
   {
-    name: '首页',
+    name: 'Dota',
     icon: 'el-icon-my el-icon-my-home',
-    index: '/mgmt/home'
+    index: '/mgmt/dota'
   }
 ]

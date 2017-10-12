@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Mgmt from '@/components/Mgmt'
-import Home from '@/pages/Home'
+import Dota from '@/pages/Dota'
 
 Vue.use(Router)
 
@@ -12,8 +12,8 @@ export default new Router({
       component: Mgmt,
       children: [
         {
-          path: 'home',
-          component: Home
+          path: 'dota',
+          component: Dota
         }
       ]
     }
