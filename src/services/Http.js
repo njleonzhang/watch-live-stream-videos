@@ -62,7 +62,7 @@ function httpBase(method, url, data = {}, options = {}) {
 
         if (error.response) {
           switch (error.response.code) {
-            case 'USER_NOT_LOGGED_IN':
+            case 'userNotLogin':
             case 'CSRF_FAILED':
               // Toast.show(error.message)
               // routerStore.replace(`/login?redirect=${routerStore.location.pathname}`)

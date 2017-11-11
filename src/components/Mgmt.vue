@@ -56,13 +56,12 @@
     .header
       // img.title-logo(src='~assets/images/titleLogo.png' @click='gotoHome')
       i.el-icon-my.el-icon-my-toggle.toggle(
-        v-hover=''
         @click="toggleSlide")
       .right
         el-dropdown(@command='dropDownItemClick')
           span.el-dropdown-link
             span.user-info {{userInfo}}
-            i.el-icon-my.el-icon-my-user(v-hover='')
+            i.el-icon-my.el-icon-my-user
           el-dropdown-menu(slot='dropdown')
             el-dropdown-item(command='gotoMy') 个人信息
             el-dropdown-item(command='logout') 退出登录
@@ -128,7 +127,7 @@
     },
 
     created() {
-      this.$store.dispatch(types.userInfo.UPDATE)
+//      this.$store.dispatch(types.userInfo.UPDATE)
     },
 
     directives: {
