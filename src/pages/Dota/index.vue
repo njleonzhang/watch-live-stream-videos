@@ -38,7 +38,6 @@
 
     async beforeRouteEnter(to, from, next) {
       let rooms = await api.User.getRooms()
-      console.log(rooms)
       next(vm => {
         vm.rooms = rooms
       })

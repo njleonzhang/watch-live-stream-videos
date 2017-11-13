@@ -77,8 +77,10 @@
       el-form(:model='addRoomData' label-width="120px")
         el-form-item(label='直播平台')
           el-select(v-model='addRoomData.platform')
-            el-option(label='斗鱼', value='douyu')
-            el-option(label='虎牙', value='huya')
+            el-option(v-for='platform in platforms'
+            :key='platform.code',
+            :label='platform.name',
+            :value='platform.code')
 
         el-form-item(label='房间号')
           el-input(v-model='addRoomData.roomId')
@@ -92,9 +94,9 @@
 <script>
   import SideBar from '@/components/SideBar'
   import MainContent from '@/components/MainContent'
-  import HttpService from '@/services/Http'
   import types from '@/store/types'
   import api from '@/api'
+  import { platforms } from '@/services/Constants'
 
   export default {
     components: {
@@ -111,6 +113,7 @@
     },
     data() {
       return {
+        platforms,
         isHover: false,
         showAddVideoRoomDialog: false,
         addRoomData: {

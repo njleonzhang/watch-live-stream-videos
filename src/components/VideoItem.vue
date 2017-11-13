@@ -140,7 +140,8 @@ a.video-item(:href='room.link', target='_blank')
 </style>
 
 <script>
-  var numeral = require('numeral')
+  import { platformMap } from '@/services/Constants'
+  import numeral from 'numeral'
 
   export default {
     props: [
@@ -159,7 +160,7 @@ a.video-item(:href='room.link', target='_blank')
         this.playing = false
       },
       getPlatform(platformCode) {
-        return '斗鱼'
+        return platformMap[platformCode]
       },
       getReadableOnline(online) {
         return numeral(online).format('0.0a')
