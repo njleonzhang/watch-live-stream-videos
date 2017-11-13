@@ -58,6 +58,7 @@
       i.el-icon-my.el-icon-my-toggle.toggle(
         @click="toggleSlide")
       .right
+        i.add-video-room.el-icon-my.el-icon-my-add(@click='showAddDialog')
         el-dropdown(@command='dropDownItemClick')
           span.el-dropdown-link
             span.user-info {{userInfo}}
@@ -68,6 +69,24 @@
     .main
       side-bar
       main-content
+
+    el-dialog(title='添加直播间',
+      :visible.sync="showAddVideoRoomDialog",
+      width='40%'
+      center)
+      el-form(:model='addRoomData' label-width="120px")
+        el-form-item(label='直播平台')
+          el-select(v-model='addRoomData.platform')
+            el-option(label='斗鱼', value='douyu')
+            el-option(label='虎牙', value='huya')
+
+        el-form-item(label='房间号')
+          el-input(v-model='addRoomData.roomId')
+
+        el-form-item
+          el-button(type='primary', @click='addRoom') 添加
+          el-button(@click='showAddVideoRoomDialog = false') 取消
+
 </template>
 
 <script>
@@ -75,6 +94,7 @@
   import MainContent from '@/components/MainContent'
   import HttpService from '@/services/Http'
   import types from '@/store/types'
+  import api from '@/api'
 
   export default {
     components: {
@@ -91,7 +111,12 @@
     },
     data() {
       return {
-        isHover: false
+        isHover: false,
+        showAddVideoRoomDialog: false,
+        addRoomData: {
+          platform: '',
+          roomId: ''
+        }
       }
     },
     methods: {
@@ -123,12 +148,25 @@
 
       gotoHome() {
         this.$router.push('/mgmt/home')
+      },
+      showAddDialog() {
+        this.showAddVideoRoomDialog = true
+      },
+      async addRoom() {
+        try {
+          await api.User.addVideoRoom(this.addRoomData.platform, this.addRoomData.roomId)
+          this.$message('添加成功')
+          this.showAddVideoRoomDialog = false
+        } catch (e) {
+          this.$message('添加失败')
+        }
+
       }
     },
 
-    created() {
+    // created() {
 //      this.$store.dispatch(types.userInfo.UPDATE)
-    },
+    // },
 
     directives: {
       hover: {

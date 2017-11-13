@@ -2,7 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-default/index.css'
+import 'element-ui/lib/theme-chalk/index.css'
 import App from '@/components/App'
 import { sync } from 'vuex-router-sync'
 import router from './router'
@@ -18,7 +18,7 @@ sync(store, router)
 Vue.use(ElementUI)
 
 Vue.use(VueProgressBar, {
-  color: '#13ce66'
+  color: 'red'
 })
 
 /* eslint-disable no-new */

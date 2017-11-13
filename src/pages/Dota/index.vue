@@ -40,7 +40,7 @@
       let rooms = await api.User.getRooms()
       console.log(rooms)
       next(vm => {
-        vm.rooms = rooms.concat(rooms)
+        vm.rooms = rooms
       })
     },
 
