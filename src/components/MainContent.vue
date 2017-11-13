@@ -3,6 +3,7 @@
     margin-left: $side-width;
     height: 100%;
     overflow: scroll;
+    background: #F2F2F2;
 
     &.slide-close {
       margin-left: $side-close-width;

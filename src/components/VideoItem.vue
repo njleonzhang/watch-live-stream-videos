@@ -1,34 +1,22 @@
 <template lang="pug">
-.video-item
+a.video-item(:href='room.link')
   .item-wrapper
-    .item-introduce(v-if="!playing")
-      .introduce-wrapper
-        .desc {{desc}}
-        .play-button(
-          @click="play"
-        ) 播放
-    .item-content(v-if="playing")
-      embed.player(
-        allownetworking='all',
-        allowscriptaccess='always',
-        :src='src',
-        quality='high',
-        bgcolor='#000',
-        wmode='window',
-        allowfullscreen='true',
-        play="false"
-        allowfullscreeninteractive='true',
-        type='application/x-shockwave-flash')
-    .name
-      span {{desc}}
-      .stop-play-button(@click="stopPlay" v-if="playing") 停止
+    .screen-shoot
+      .screen-shoot-wrapper(:style="{color: 'red', 'background-image': `url(${room.screenShoot})`}")
+    .info-area
+      .info-area-wrapper
+        .title {{room.title}}
+        .info
+          .online {{getReadableOnline(room.online)}}
+          .host {{room.hostName}}
+          .platform {{getPlatform(room.platform)}}
 </template>
 
 <style lang="scss" scoped>
   .video-item {
     position: relative;
     box-sizing: border-box;
-    margin-bottom: 50px;
+    background: white;
 
     .item-wrapper {
       position: absolute;
@@ -38,61 +26,89 @@
       right: 0;
     }
 
-    .item-content, .item-introduce {
+    .screen-shoot {
+      display: block;
       width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      padding-top: 100% * $image-height-ratio / $image-width-ratio;
+      position: relative;
+
+      .screen-shoot-wrapper {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
     }
 
-    .player {
+    .title {
+      flex: 0 0 1;
       width: 100%;
-      height: 100%;
-    }
-
-    .name {
-      height: 50px;
-      line-height: 50px;
-      color: $light-blue;
+      color: #222;
       text-align: center;
-      font-size: 18px;
+      font-size: 16px;
+      line-height: 44px;
+      font-weight: 900;
     }
 
-    .stop-play-button {
-      float: right;
+    .info-area {
+      display: block;
+      width: 100%;
+      padding-top: 100% * ($item-height-ratio / $item-width-ratio - $image-height-ratio / $image-width-ratio);
+      position: relative;
     }
 
-    .item-introduce {
-      background: $light-gray;
+    .info-area-wrapper {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      align-content: center;
     }
 
-    .introduce-wrapper {
-      .desc {
+    .info {
+      position: relative;
+      font-size: 14px;
+      width: 100%;
+
+      .online, .host, .platform {
+        display: inline-block;
+        color: #333;
+      }
+
+      .online {
+        margin-left: 10px;
+      }
+
+      .host {
+        color: #2a9d89;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
         text-align: center;
       }
 
-      .play-button {
-        width: 100px;
-        height: 60px;
-        line-height: 60px;
-        border: 1px solid black;
-        border-radius: 20px;
-        text-align: center;
+      .platform {
+        float: right;
+        margin-right: 10px;
       }
-    }
-
-    &:nth-child(2n + 1) {
-      margin-right: 5%;
     }
   }
 </style>
 
 <script>
+  var numeral = require('numeral')
+
   export default {
     props: [
-      'src',
-      'desc'
+      'room'
     ],
     data() {
       return {
@@ -105,6 +121,12 @@
       },
       stopPlay() {
         this.playing = false
+      },
+      getPlatform(platformCode) {
+        return '斗鱼'
+      },
+      getReadableOnline(online) {
+        return numeral(online).format('0.0a')
       }
     }
   };
