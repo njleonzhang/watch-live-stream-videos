@@ -1,8 +1,10 @@
 <template lang="pug">
-a.video-item(:href='room.link')
+a.video-item(:href='room.link', target='_blank')
   .item-wrapper
     .screen-shoot
-      .screen-shoot-wrapper(:style="{color: 'red', 'background-image': `url(${room.screenShoot})`}")
+      .screen-shoot-wrapper(:style="{'background-image': `url(${room.screenShoot})`}")
+        .cover
+          img(src='../assets/images/play_bj.png')
     .info-area
       .info-area-wrapper
         .title {{room.title}}
@@ -98,6 +100,40 @@ a.video-item(:href='room.link')
       .platform {
         float: right;
         margin-right: 10px;
+      }
+    }
+
+    @keyframes playIn {
+      from {
+        padding-top: 100px;
+      }
+
+      to {
+        padding-top: 0;
+      }
+    }
+
+    .screen-shoot-wrapper .cover {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(black, .4);
+      align-items: center;
+      justify-content: center;
+
+      img {
+        width: 51px;
+        height: 51px;
+      }
+    }
+
+    &:hover {
+      .screen-shoot-wrapper .cover {
+        display: flex;
+        animation: playIn .5s;
       }
     }
   }
