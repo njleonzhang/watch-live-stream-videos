@@ -4,7 +4,8 @@ const platformMap = {
   douyu: '斗鱼',
   panda: '熊猫',
   // huya: '虎牙',
-  quanmin: '全民'
+  quanmin: '全民',
+  zhanqi: '战旗'
 }
 
 const platforms = Object.keys(platformMap)
