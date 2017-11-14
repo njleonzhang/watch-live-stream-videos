@@ -49,7 +49,7 @@
       background-size: cover;
     }
 
-    .jump-to-register {
+    .jump-to-login{
       color: #8a94a2;
       cursor: pointer;
     }
@@ -63,34 +63,36 @@
       .logo-wrapper
         //- img.logo(src='~assets/images/loginLogo.png')
       p 直播导航
-      el-form.login-form(:model='loginData', label-position='top', :rules='rules', ref='form')
+      el-form.login-form(:model='registerData', label-position='top', :rules='rules', ref='form')
         el-form-item(label='用户名', prop='username')
-          el-input(v-model='loginData.username', @keyup.enter.native='login')
+          el-input(v-model='registerData.username')
         el-form-item(label='密码', prop='password')
-          el-input(v-model='loginData.password', type='password', @keyup.enter.native='login')
+          el-input(v-model='registerData.password', type='password')
+        el-form-item(label='确认密码', prop='confirmPassword')
+          el-input(v-model='registerData.confirmPassword', type='password', @keyup.enter.native='register')
         //- el-form-item(label='验证码', prop='captcha_code')
         //-   el-row
         //-     el-col(:span=14)
-        //-       el-input(v-model='loginData.captcha_code', @keyup.enter.native='login')
+        //-       el-input(v-model='registerData.captcha_code', @keyup.enter.native='login')
         //-     el-col(:span=8, :offset='2')
         //-       img.captcha(:src='captchaUrl' @click='refreshCaptcha')
         el-form-item
-          el-button.login-button(type='success' @click='login') 登录
+          el-button.login-button(type='success' @click='register') 注册
 
-      p.jump-to-register(@click='$router.push("/register")') 还没账号, 去注册
+      p.jump-to-login(@click='$router.push("/login")') 还没账号, 去注册
 </template>
 
 <script>
 import particles from 'exports-loader?particlesJS=window.particlesJS,window.pJSDom!particles.js'
 import config from '@/services/particlesConfig'
 import api from '@/api'
-import { CachedCsrf } from '@/services/CachedCookies'
+import {CachedCsrf} from '@/services/CachedCookies'
 // import types from 'store/types'
 
 export default {
   data() {
     return {
-      loginData: {
+      registerData: {
         username: '',
         password: '',
         captcha_code: ''
@@ -105,6 +107,10 @@ export default {
         password: [{
           required: true, message: '请输入密码', trigger: 'change'
         }],
+        confirmPassword: [{
+          required: true, message: '请确认密码', trigger: 'change'
+        }],
+
         // captcha_code: [{
         //   required: true, message: '请输入验证码', trigger: 'change'
         // }]
@@ -125,20 +131,24 @@ export default {
   },
 
   methods: {
-    login() {
+    register() {
       this.$refs.form.validate(valid => {
         if (valid) {
-          api.Auth.login(this.loginData.username, this.loginData.password).then(data => {
-            this.$router.push('/mgmt/dota')
-          }, _ => {
-            // this.refreshCaptcha()
-          })
+          if (this.registerData.password === this.registerData.confirmPassword) {
+            api.Auth.register(this.registerData.username, this.registerData.password).then(data => {
+              this.$router.push('/mgmt/dota')
+            }, _ => {
+              // this.refreshCaptcha()
+            })
+          } else {
+            this.$message('两次输入的密码不一样')
+          }
         }
       })
     },
 
     // initCaptchaData(data) {
-    //   this.loginData.captcha_key = data.captcha_key
+    //   this.registerData.captcha_key = data.captcha_key
     //   this.captchaUrl = data.captcha_img_url
     // },
 

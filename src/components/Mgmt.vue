@@ -134,14 +134,14 @@
             break
 
           case 'logout':
-//            HttpService.SCCommonGet('staff/logout').then(_ => {
-//              this.$message({
-//                type: 'success',
-//                message: '登出成功'
-//              })
-//              this.$store.dispatch(types.userInfo.DELETE)
-//              this.$router.push('/login')
-//            })
+           api.Auth.logout().then(_ => {
+             this.$message({
+               type: 'success',
+               message: '登出成功'
+             })
+            //  this.$store.dispatch(types.userInfo.DELETE)
+             this.$router.push('/login')
+           })
             break
 
           default:
