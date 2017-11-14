@@ -2,7 +2,7 @@ import axios from 'axios'
 
 import { CachedCsrf } from '@/services/CachedCookies'
 // import { routerStore } from '@/stores'
-// import Toast from '@components/Toast'
+import { Message } from 'element-ui';
 
 let loadingDelayHanlder
 
@@ -70,7 +70,7 @@ function httpBase(method, url, data = {}, options = {}) {
 
             default:
               if (showErrorToast) {
-                // Toast.show(error.message)
+                Message.error(error.message)
               }
           }
           return Promise.reject(error)
@@ -91,7 +91,7 @@ function httpBase(method, url, data = {}, options = {}) {
             errorMsg = '未知错误'
         }
         if (showErrorToast) {
-          // Toast.show(errorMsg)
+          Toast.show(errorMsg)
         }
         return Promise.reject(error)
       })

@@ -156,14 +156,9 @@
         this.showAddVideoRoomDialog = true
       },
       async addRoom() {
-        try {
-          await api.User.addVideoRoom(this.addRoomData.platform, this.addRoomData.roomId)
-          this.$message('添加成功')
-          this.showAddVideoRoomDialog = false
-        } catch (e) {
-          this.$message('添加失败')
-        }
-
+        let result = await api.User.addVideoRoom(this.addRoomData.platform, this.addRoomData.roomId)
+        this.$message('添加成功')
+        this.showAddVideoRoomDialog = false
       }
     },
 
